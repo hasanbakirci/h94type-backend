@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using h94type.API.Repository;
+using h94type.API.Repository.GenreRepository;
+using h94type.API.Repository.TextRepository;
+using h94type.API.Services.GenreService;
+using h94type.API.Services.TextService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +33,19 @@ namespace h94type.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //var dbConnection = Configuration["ConnectionStrings:DbConnection"];
+            //services.AddDbContext<ApplicationDbContext>(option => option.UseNpgsql(dbConnection, b => b.MigrationsAssembly("h94type.API")));
+            //services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DbConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DbConnection")));
+
+            services.AddScoped<ITextRepository,TextRepository>();
+            services.AddTransient<ITextService,TextService>();
+
+            services.AddScoped<IGenreRepository,GenreRepository>();
+            services.AddTransient<IGenreService,GenreService>();
+            
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
