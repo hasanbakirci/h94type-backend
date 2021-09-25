@@ -15,5 +15,7 @@ namespace h94type.API.Services.TextService
         Task<IDataResult<TextViewModel>> GetByWord(string word);
         Task<IResult> Delete(Guid id);
         Task<IResult> Update(Guid id, UpdateTextRequest text);
+        Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreId(Guid id);
+        Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreIdAndStared(Guid id);
     }
 }

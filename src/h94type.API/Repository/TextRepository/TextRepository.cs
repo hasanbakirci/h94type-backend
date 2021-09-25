@@ -30,7 +30,19 @@ namespace h94type.API.Repository.TextRepository
 
         public async Task<IEnumerable<Text>> GetAll()
         {
-            return await _context.Texts.Include(x => x.Genre).ToListAsync();
+            return await _context.Texts.Include(x => x.Genre).ToListAsync();   
+        }
+
+        public async Task<IEnumerable<Text>> GetAllByGenreId(Guid id)
+        {
+            var result = await _context.Texts.Include(x => x.Genre).Where(x => x.GenreId == id).ToListAsync();
+            return result.OrderBy(y => Guid.NewGuid()).ToList();
+        }
+
+        public async Task<IEnumerable<Text>> GetAllByGenreIdAndStared(Guid id)
+        {
+            var result = await _context.Texts.Include(x => x.Genre).Where(x => x.GenreId == id && x.Star == true).ToListAsync();
+            return  result.OrderBy(y => Guid.NewGuid()).ToList();
         }
 
         public async Task<Text> GetById(Guid id)

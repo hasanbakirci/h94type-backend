@@ -40,7 +40,7 @@ namespace h94type.API.Controllers
             return BadRequest(genre);
                     
         }
-        [HttpGet("/GetByName/{name}")]
+        [HttpGet("/Genres/GetByName/{name}")]
         public async Task<ActionResult<GenreViewModel>> Get(string name)
         {
             var genre = await _genreService.GetByGenreName(name);

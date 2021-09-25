@@ -29,8 +29,26 @@ namespace h94type.API.Controllers
             }
             return BadRequest(texts);
         }
+        [HttpGet("/Texts/GetAllByGenreId/{id}")]
+        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreId(Guid id)
+        {
+            var texts = await _textService.GetAllByGenreId(id);
+            if(texts.Success){
+                return Ok(texts);
+            }
+            return BadRequest(texts);
+        }
+        [HttpGet("/Texts/GetAllByGenreIdAndStared/{id}")]
+        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreIdAndStared(Guid id)
+        {
+            var texts = await _textService.GetAllByGenreIdAndStared(id);
+            if(texts.Success){
+                return Ok(texts);
+            }
+            return BadRequest(texts);
+        }
 
-        [HttpGet("/GetById/{id}")]
+        [HttpGet("/Texts/GetById/{id}")]
         public async Task<ActionResult<TextViewModel>> GetById(Guid id)
         {
             var text = await _textService.GetById(id);
@@ -39,7 +57,7 @@ namespace h94type.API.Controllers
             }
             return BadRequest(text);
         }
-        [HttpGet("/GetByWord/{word}")]
+        [HttpGet("/Texts/GetByWord/{word}")]
         public async Task<ActionResult<TextViewModel>> GetByWord(string word)
         {
             var text = await _textService.GetByWord(word);

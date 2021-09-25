@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using h94type.API.Dtos;
 using h94type.API.Dtos.Requests.TextRequest;
 using h94type.API.Models;
@@ -23,8 +24,9 @@ namespace h94type.API.Services.TextService
 
         public async Task<IResult> Create(CreateTextRequest request)
         {
+            CreateTextRequestValidator validate = new CreateTextRequestValidator();
             var result = await _textRepository.GetByWord(request.Word);
-            if(result != null)
+            if(result != null || !validate.Validate(request).IsValid)
                 return new ErrorResult(false,"Text Zaten Mevcut");
             await _textRepository.Create(_mapper.Map<Text>(request));
             return new SuccessResult(true,"Text Eklendi..");
@@ -70,6 +72,18 @@ namespace h94type.API.Services.TextService
             if(result is null)
                 return new ErrorDataResult<TextViewModel>("Text Bulunamadı..");
             return new SuccessDataResult<TextViewModel>(_mapper.Map<TextViewModel>(result),"Text Listelendi..");
+        }
+
+        public async Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreId(Guid id)
+        {
+            return new SuccessDataResult<IEnumerable<TextViewModel>>
+            (_mapper.Map<IEnumerable<TextViewModel>>(await _textRepository.GetAllByGenreId(id)),"Text, Genre Türüne Göre Listelendi..");
+        }
+
+        public async Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreIdAndStared(Guid id)
+        {
+            return new SuccessDataResult<IEnumerable<TextViewModel>>
+            (_mapper.Map<IEnumerable<TextViewModel>>(await _textRepository.GetAllByGenreIdAndStared(id)),"Text, Genre Türüne ve Star Durumuna Göre Listelendi..");
         }
     }
 }
