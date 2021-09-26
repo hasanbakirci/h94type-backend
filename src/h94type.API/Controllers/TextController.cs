@@ -29,19 +29,19 @@ namespace h94type.API.Controllers
             }
             return BadRequest(texts);
         }
-        [HttpGet("/Texts/GetAllByGenreId/{id}")]
-        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreId(Guid id)
+        [HttpGet("/Texts/GetAllByGenreName/{genreName}")]
+        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreName(string genreName)
         {
-            var texts = await _textService.GetAllByGenreId(id);
+            var texts = await _textService.GetAllByGenreName(genreName);
             if(texts.Success){
                 return Ok(texts);
             }
             return BadRequest(texts);
         }
-        [HttpGet("/Texts/GetAllByGenreIdAndStared/{id}")]
-        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreIdAndStared(Guid id)
+        [HttpGet("/Texts/GetAllByGenreNameAndStared/{genreName}")]
+        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreNameAndStared(string genreName)
         {
-            var texts = await _textService.GetAllByGenreIdAndStared(id);
+            var texts = await _textService.GetAllByGenreNameAndStared(genreName);
             if(texts.Success){
                 return Ok(texts);
             }

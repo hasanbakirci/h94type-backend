@@ -6,8 +6,8 @@ namespace h94type.API.Dtos.Requests.TextRequest
     {
         public CreateTextRequestValidator()
         {
-            RuleFor(req => req.Word).NotEmpty().MinimumLength(2).MaximumLength(20);
-            RuleFor(req => req.Translation).NotEmpty().MinimumLength(2).MaximumLength(20);
+            RuleFor(req => req.Word).NotEmpty().MinimumLength(2).MaximumLength(40);
+            RuleFor(req => req.Translation).NotEmpty().MinimumLength(2).MaximumLength(40);
             RuleFor(req => req.GenreId).NotEmpty();
         }
     }
