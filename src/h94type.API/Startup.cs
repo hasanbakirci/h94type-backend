@@ -23,7 +23,6 @@ namespace h94type.API
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -54,13 +53,10 @@ namespace h94type.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "h94type.API", Version = "v1" });
             });
             services.AddCors(options =>
-        {
-            options.AddPolicy(name: MyAllowSpecificOrigins,
-                              builder =>
-                              {
-                                  builder.WithOrigins("http://localhost:3000");
-                              });
-        });
+                {
+                    options.AddPolicy("AllowOrigin",
+                              builder => builder.WithOrigins("http://localhost:3000"));
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +73,7 @@ namespace h94type.API
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
 
             app.UseAuthorization();
 
