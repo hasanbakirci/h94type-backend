@@ -80,10 +80,10 @@ namespace h94type.API.Services.TextService
             (_mapper.Map<IEnumerable<TextViewModel>>(await _textRepository.GetAllByGenreName(genreName)),"Text, Genre Türüne Göre Listelendi..");
         }
 
-        public async Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreNameAndStared(string genreName)
+        public async Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreNameAndStarly(string genreName)
         {
             return new SuccessDataResult<IEnumerable<TextViewModel>>
-            (_mapper.Map<IEnumerable<TextViewModel>>(await _textRepository.GetAllByGenreNameAndStared(genreName)),"Text, Genre Türüne ve Star Durumuna Göre Listelendi..");
+            (_mapper.Map<IEnumerable<TextViewModel>>(await _textRepository.GetAllByGenreNameAndStarly(genreName)),"Text, Genre Türüne ve Star Durumuna Göre Listelendi..");
         }
     }
 }

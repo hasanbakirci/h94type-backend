@@ -16,6 +16,6 @@ namespace h94type.API.Services.TextService
         Task<IResult> Delete(Guid id);
         Task<IResult> Update(Guid id, UpdateTextRequest text);
         Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreName(string genreName);
-        Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreNameAndStared(string genreName);
+        Task<IDataResult<IEnumerable<TextViewModel>>> GetAllByGenreNameAndStarly(string genreName);
     }
 }

@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace h94type.API.Controllers
 {
     [ApiController]
-    [Route("[controller]s")]
-    public class GenreController : ControllerBase
+    [Route("api/[controller]")]
+    public class GenresController : ControllerBase
     {
         private readonly IGenreService _genreService;
         private readonly IMapper _mapper;
 
-        public GenreController(IGenreService genreService, IMapper mapper)
+        public GenresController(IGenreService genreService, IMapper mapper)
         {
             _genreService = genreService;
             _mapper = mapper;
@@ -30,7 +30,7 @@ namespace h94type.API.Controllers
             }
             return BadRequest(genres);
         }
-        [HttpGet("{id}")]
+        [HttpGet("Search/id/{id}")]
         public async Task<ActionResult<GenreViewModel>> Get(Guid id)
         {
             var genre = await _genreService.GetById(id);
@@ -40,7 +40,7 @@ namespace h94type.API.Controllers
             return BadRequest(genre);
                     
         }
-        [HttpGet("/Genres/GetByName/{name}")]
+        [HttpGet("Search/Name/{name}")]
         public async Task<ActionResult<GenreViewModel>> Get(string name)
         {
             var genre = await _genreService.GetByGenreName(name);

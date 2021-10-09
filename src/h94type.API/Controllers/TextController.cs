@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace h94type.API.Controllers
 {
     [ApiController]
-    [Route("[controller]s")]
-    public class TextController : ControllerBase
+    [Route("api/[controller]")]
+    public class TextsController : ControllerBase
     {
         private readonly ITextService _textService;
         private readonly IMapper _mapper;
-        public TextController(ITextService textService,IMapper mapper)
+        public TextsController(ITextService textService,IMapper mapper)
         {
             _textService = textService;
             _mapper = mapper;
@@ -29,7 +29,7 @@ namespace h94type.API.Controllers
             }
             return BadRequest(texts);
         }
-        [HttpGet("/Texts/GetAllByGenreName/{genreName}")]
+        [HttpGet("Search/GenreName/{genreName}")]
         public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreName(string genreName)
         {
             var texts = await _textService.GetAllByGenreName(genreName);
@@ -38,17 +38,17 @@ namespace h94type.API.Controllers
             }
             return BadRequest(texts);
         }
-        [HttpGet("/Texts/GetAllByGenreNameAndStared/{genreName}")]
-        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreNameAndStared(string genreName)
+        [HttpGet("Search/GenreNameAndStarly/{genreName}")]
+        public  async Task<ActionResult<IEnumerable<TextViewModel>>> GetAllByGenreNameAndStarly(string genreName)
         {
-            var texts = await _textService.GetAllByGenreNameAndStared(genreName);
+            var texts = await _textService.GetAllByGenreNameAndStarly(genreName);
             if(texts.Success){
                 return Ok(texts);
             }
             return BadRequest(texts);
         }
 
-        [HttpGet("/Texts/GetById/{id}")]
+        [HttpGet("Search/id/{id}")]
         public async Task<ActionResult<TextViewModel>> GetById(Guid id)
         {
             var text = await _textService.GetById(id);
@@ -57,7 +57,7 @@ namespace h94type.API.Controllers
             }
             return BadRequest(text);
         }
-        [HttpGet("/Texts/GetByWord/{word}")]
+        [HttpGet("Search/word/{word}")]
         public async Task<ActionResult<TextViewModel>> GetByWord(string word)
         {
             var text = await _textService.GetByWord(word);

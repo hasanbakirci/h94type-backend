@@ -36,13 +36,13 @@ namespace h94type.API.Repository.TextRepository
 
         public async Task<IEnumerable<Text>> GetAllByGenreName(string genreName)
         {
-            var result = await _context.Texts.Include(x => x.Genre).Where(x => x.Genre.GenreName == genreName).ToListAsync();
+            var result = await _context.Texts.Include(x => x.Genre).Where(x => x.Genre.GenreName.Trim().ToLower() == genreName.Trim().ToLower()).ToListAsync();
             return result.OrderBy(y => Guid.NewGuid()).ToList();
         }
 
-        public async Task<IEnumerable<Text>> GetAllByGenreNameAndStared(string genreName)
+        public async Task<IEnumerable<Text>> GetAllByGenreNameAndStarly(string genreName)
         {
-            var result = await _context.Texts.Include(x => x.Genre).Where(x => x.Genre.GenreName == genreName && x.Star == true).ToListAsync();
+            var result = await _context.Texts.Include(x => x.Genre).Where(x => x.Genre.GenreName.Trim().ToLower() == genreName.Trim().ToLower() && x.Star == true).ToListAsync();
             return  result.OrderBy(y => Guid.NewGuid()).ToList();
         }
 

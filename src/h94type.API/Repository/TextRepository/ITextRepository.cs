@@ -14,6 +14,6 @@ namespace h94type.API.Repository.TextRepository
         Task Delete(Guid id);
         Task Update(Guid id, Text text);
         Task<IEnumerable<Text>> GetAllByGenreName(string genreName);
-        Task<IEnumerable<Text>> GetAllByGenreNameAndStared(string genreName);
+        Task<IEnumerable<Text>> GetAllByGenreNameAndStarly(string genreName);
     }
 }
